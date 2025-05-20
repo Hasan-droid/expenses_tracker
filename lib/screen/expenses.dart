@@ -27,6 +27,12 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void removeItem(Expense expense) {
+    setState(() {
+      expenses.remove(expense);
+    });
+  }
+
   List<Expense> expenses = [
     Expense(Category.houses, DateTime.now(), 20, "banana"),
     Expense(Category.travel, DateTime.now(), 20, "USA"),
@@ -43,7 +49,7 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: ExpensesList(expensesList: expenses),
+      body: ExpensesList(expensesList: expenses, onRemoveItem: removeItem),
     );
   }
 }
