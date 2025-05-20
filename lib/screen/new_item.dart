@@ -2,7 +2,9 @@ import 'package:expenses_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewItem extends StatefulWidget {
-  const NewItem({super.key});
+  NewItem({super.key, required this.onAddNewItem});
+
+  void Function(Expense expense) onAddNewItem;
 
   @override
   State<NewItem> createState() => _NewItemState();
@@ -10,7 +12,7 @@ class NewItem extends StatefulWidget {
 
 class _NewItemState extends State<NewItem> {
   final _inputTextController = TextEditingController();
-  final _inputNumberController = TextEditingController();
+  final _inputAmountController = TextEditingController();
   Category _categoryValue = Category.houses;
   DateTime? _dateValue;
 
@@ -31,12 +33,47 @@ class _NewItemState extends State<NewItem> {
     });
   }
 
+  _submitInputs() {
+    final parsedAmount = double.tryParse(_inputAmountController.text);
+    final isValidAmount = parsedAmount != null && parsedAmount > 0;
+    if (!isValidAmount ||
+        _inputTextController.text.trim().isEmpty ||
+        _dateValue == null) {
+      return showDialog(
+        context: context,
+        builder:
+            (ctx) => AlertDialog(
+              title: Text("Invalid Input"),
+              content: Text("Some inputs are invalid"),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            ),
+      );
+    }
+
+    widget.onAddNewItem(
+      Expense(
+        _categoryValue,
+        _dateValue!,
+        double.parse(_inputAmountController.text),
+        _inputTextController.text,
+      ),
+    );
+    Navigator.of(context).pop();
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _inputTextController.dispose();
-    _inputNumberController.dispose();
+    _inputAmountController.dispose();
   }
 
   @override
@@ -61,7 +98,7 @@ class _NewItemState extends State<NewItem> {
                     label: Text("Amount"),
                     prefix: Text("\$ "),
                   ),
-                  controller: _inputNumberController,
+                  controller: _inputAmountController,
                   keyboardType: TextInputType.number,
                 ),
               ),
@@ -108,14 +145,14 @@ class _NewItemState extends State<NewItem> {
                   },
                 ),
                 Spacer(),
-                ElevatedButton(onPressed: () {}, child: Text("Save")),
-                SizedBox(width: 6),
                 OutlinedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: Text("Cancel"),
                 ),
+                SizedBox(width: 6),
+                ElevatedButton(onPressed: _submitInputs, child: Text("Save")),
               ],
             ),
           ),

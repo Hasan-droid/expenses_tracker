@@ -15,9 +15,15 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return NewItem();
+        return NewItem(onAddNewItem: addNewItem);
       },
     );
+  }
+
+  void addNewItem(Expense expense) {
+    setState(() {
+      expenses.add(expense);
+    });
   }
 
   List<Expense> expenses = [
