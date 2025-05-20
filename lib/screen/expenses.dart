@@ -28,8 +28,28 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void removeItem(Expense expense) {
+    final expenseIndex = expenses.indexOf(expense);
+
     setState(() {
       expenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Expense Delete"),
+        action: SnackBarAction(
+          label: "undo",
+          onPressed: () {
+            insertItem(expense, expenseIndex);
+          },
+        ),
+      ),
+    );
+  }
+
+  void insertItem(Expense expense, int index) {
+    setState(() {
+      expenses.insert(index, expense);
     });
   }
 
