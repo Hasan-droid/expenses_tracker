@@ -13,6 +13,7 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   void showNewItemOverLay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (context) {
         return NewItem(onAddNewItem: addNewItem);

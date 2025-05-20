@@ -79,7 +79,9 @@ class _NewItemState extends State<NewItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      //this padding so the modal does not overlap with camera notch on top
+      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+      // padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           TextField(
