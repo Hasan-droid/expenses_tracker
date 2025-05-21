@@ -10,7 +10,7 @@ class ExpenseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(expenseItem.title),
+        Text(expenseItem.title, style: Theme.of(context).textTheme.titleLarge),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: Row(
