@@ -8,12 +8,16 @@ class ExpenseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(expenseItem.title, style: Theme.of(context).textTheme.titleLarge),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            expenseItem.title,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          Row(
             children: [
               Text('\$${expenseItem.amount}'),
               Spacer(),
@@ -22,8 +26,8 @@ class ExpenseItem extends StatelessWidget {
               Text(expenseItem.formattedDate),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

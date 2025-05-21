@@ -5,9 +5,32 @@ import 'package:expenses_tracker/screen/expenses.dart';
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: Color.fromARGB(255, 66, 6, 131),
 );
+
+var kDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: Color.fromARGB(255, 40, 20, 50),
+);
 void main() {
   runApp(
     MaterialApp(
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorScheme,
+        appBarTheme: AppBarTheme().copyWith(
+          backgroundColor: kDarkColorScheme.primaryContainer,
+          foregroundColor: kDarkColorScheme.onPrimaryContainer,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kDarkColorScheme.secondaryContainer,
+          ),
+        ),
+        textTheme: ThemeData.dark().textTheme.copyWith(
+          titleLarge: TextStyle(
+            fontSize: 16,
+            color: Color.fromARGB(255, 198, 153, 229),
+          ),
+        ),
+      ),
       theme: ThemeData.light().copyWith(
         colorScheme: kColorScheme,
         appBarTheme: AppBarTheme().copyWith(
