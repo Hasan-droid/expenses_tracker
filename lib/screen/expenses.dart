@@ -14,6 +14,7 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   void showNewItemOverLay() {
     showModalBottomSheet(
+      useSafeArea: true,
       isScrollControlled: true,
       context: context,
       constraints: BoxConstraints(maxHeight: double.infinity),
