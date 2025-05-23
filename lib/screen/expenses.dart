@@ -1,5 +1,6 @@
 import 'package:expenses_tracker/models/expense.dart';
 import 'package:expenses_tracker/screen/new_item.dart';
+import 'package:expenses_tracker/widgets/chart/chart.dart';
 import 'package:expenses_tracker/widgets/expenses_list.dart';
 import 'package:flutter/material.dart';
 
@@ -69,7 +70,17 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: ExpensesList(expensesList: expenses, onRemoveItem: removeItem),
+      body: Column(
+        children: [
+          Chart(expenses: expenses),
+          Expanded(
+            child: ExpensesList(
+              expensesList: expenses,
+              onRemoveItem: removeItem,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

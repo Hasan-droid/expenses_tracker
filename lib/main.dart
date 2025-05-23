@@ -24,6 +24,10 @@ void main() {
             backgroundColor: kDarkColorScheme.secondaryContainer,
           ),
         ),
+        cardTheme: CardTheme().copyWith(
+          color: kColorScheme.secondary,
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        ),
         textTheme: ThemeData.dark().textTheme.copyWith(
           titleLarge: TextStyle(
             fontSize: 16,
