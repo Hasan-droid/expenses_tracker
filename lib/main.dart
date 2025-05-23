@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:expenses_tracker/screen/expenses.dart';
+import 'package:flutter/services.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: Color.fromARGB(255, 66, 6, 131),
@@ -10,7 +11,10 @@ var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
   seedColor: Color.fromARGB(255, 40, 20, 50),
 );
-void main() {
+void main() async {
+  //insures widget has initialized , with put this line an error will occur
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MaterialApp(
       darkTheme: ThemeData.dark().copyWith(
