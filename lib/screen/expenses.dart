@@ -16,6 +16,7 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
+      constraints: BoxConstraints(maxHeight: double.infinity),
       builder: (context) {
         return NewItem(onAddNewItem: addNewItem);
       },

@@ -78,87 +78,90 @@ class _NewItemState extends State<NewItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      //this padding so the modal does not overlap with camera notch on top
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
-      // padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(label: Text("Title")),
-            controller: _inputTextController,
-            maxLength: 50,
-            keyboardType: TextInputType.text,
-          ),
+    final keyBoardSpace = MediaQuery.of(context).viewInsets.bottom;
+    return SingleChildScrollView(
+      child: Padding(
+        //this padding so the modal does not overlap with camera notch on top
+        padding: EdgeInsets.fromLTRB(16, 48, 16, keyBoardSpace + 16),
+        // padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(label: Text("Title")),
+              controller: _inputTextController,
+              maxLength: 50,
+              keyboardType: TextInputType.text,
+            ),
 
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    label: Text("Amount"),
-                    prefix: Text("\$ "),
-                  ),
-                  controller: _inputAmountController,
-                  keyboardType: TextInputType.number,
-                ),
-              ),
-              SizedBox(width: 30),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    _dateValue != null
-                        ? Text(formatter.format(_dateValue!))
-                        : Text("selected Date"),
-                    IconButton(
-                      onPressed: () {
-                        _presentDatePicker();
-                      },
-                      icon: Icon(Icons.date_range),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-            child: Row(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                DropdownButton(
-                  value: _categoryValue,
-                  items:
-                      Category.values
-                          .map(
-                            (category) => DropdownMenuItem(
-                              value: category,
-                              child: Text(category.name),
-                            ),
-                          )
-                          .toList(),
-                  onChanged: (value) {
-                    if (value == null) return;
-                    setState(() {
-                      _categoryValue = value!;
-                    });
-                  },
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      label: Text("Amount"),
+                      prefix: Text("\$ "),
+                    ),
+                    controller: _inputAmountController,
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
-                Spacer(),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Cancel"),
+                SizedBox(width: 30),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      _dateValue != null
+                          ? Text(formatter.format(_dateValue!))
+                          : Text("selected Date"),
+                      IconButton(
+                        onPressed: () {
+                          _presentDatePicker();
+                        },
+                        icon: Icon(Icons.date_range),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(width: 6),
-                ElevatedButton(onPressed: _submitInputs, child: Text("Save")),
               ],
             ),
-          ),
-        ],
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              child: Row(
+                children: [
+                  DropdownButton(
+                    value: _categoryValue,
+                    items:
+                        Category.values
+                            .map(
+                              (category) => DropdownMenuItem(
+                                value: category,
+                                child: Text(category.name),
+                              ),
+                            )
+                            .toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() {
+                        _categoryValue = value!;
+                      });
+                    },
+                  ),
+                  Spacer(),
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Cancel"),
+                  ),
+                  SizedBox(width: 6),
+                  ElevatedButton(onPressed: _submitInputs, child: Text("Save")),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
